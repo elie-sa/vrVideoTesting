@@ -138,8 +138,10 @@ async function joinRoomById(roomId) {
 // Function to request user media permissions
 async function openUserMedia(e) {
   try {
-    // Request permission and access to media devices
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: true
+    });
     document.querySelector('#localVideo').srcObject = stream;
     localStream = stream;
     remoteStream = new MediaStream();
@@ -151,8 +153,8 @@ async function openUserMedia(e) {
     document.querySelector('#createBtn').disabled = false;
     document.querySelector('#hangupBtn').disabled = false;
   } catch (error) {
-    console.error('Error accessing media devices:', error);
-    alert('Please allow camera and microphone access for this application to work.');
+    console.error('Error accessing media devices.', error);
+    alert('Unable to access camera and microphone. Please check your browser settings.');
   }
 }
 
