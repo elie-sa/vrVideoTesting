@@ -1,7 +1,6 @@
-// Attach ripple effect to MDC buttons
 mdc.ripple.MDCRipple.attachTo(document.querySelector('.mdc-button'));
 
-// Default configuration for STUN/TURN servers
+// Default configuration - Change these if you have a different STUN or TURN server.
 const configuration = {
   iceServers: [
     {
@@ -21,17 +20,13 @@ let roomDialog = null;
 let roomId = null;
 
 function init() {
-  // Attach event listeners for buttons
   document.querySelector('#cameraBtn').addEventListener('click', openUserMedia);
   document.querySelector('#hangupBtn').addEventListener('click', hangUp);
   document.querySelector('#createBtn').addEventListener('click', createRoom);
   document.querySelector('#joinBtn').addEventListener('click', joinRoom);
-
-  // Initialize MDC dialog component
   roomDialog = new mdc.dialog.MDCDialog(document.querySelector('#room-dialog'));
 }
 
-// Function to create a new room and set up WebRTC connections
 async function createRoom() {
   document.querySelector('#createBtn').disabled = true;
   document.querySelector('#joinBtn').disabled = true;
@@ -46,10 +41,10 @@ async function createRoom() {
     peerConnection.addTrack(track, localStream);
   });
 
-  // Create an offer and set it as the local description
+  // Create an offer and send it to the room
   const offer = await peerConnection.createOffer();
   await peerConnection.setLocalDescription(offer);
-
+  
   // Save the room and offer in Firebase Firestore
   const roomRef = db.collection('rooms').doc();
   await roomRef.set({
@@ -60,7 +55,7 @@ async function createRoom() {
   roomId = roomRef.id;
   console.log('Room created with ID:', roomId);
   document.querySelector('#currentRoom').innerText = `Room ID: ${roomId}`;
-
+  
   // Collect ICE candidates and store them in Firestore
   peerConnection.onicecandidate = async (event) => {
     if (event.candidate) {
@@ -69,22 +64,21 @@ async function createRoom() {
   };
 }
 
-// Function to join an existing room by ID
 function joinRoom() {
   document.querySelector('#createBtn').disabled = true;
   document.querySelector('#joinBtn').disabled = true;
 
-  document.querySelector('#confirmJoinBtn').addEventListener('click', async () => {
-    roomId = document.querySelector('#room-id').value;
-    console.log('Join room: ', roomId);
-    document.querySelector('#currentRoom').innerText = `Current room is ${roomId} - You are the callee!`;
-    await joinRoomById(roomId);
-  }, {once: true});
-  
+  document.querySelector('#confirmJoinBtn').
+      addEventListener('click', async () => {
+        roomId = document.querySelector('#room-id').value;
+        console.log('Join room: ', roomId);
+        document.querySelector(
+            '#currentRoom').innerText = `Current room is ${roomId} - You are the callee!`;
+        await joinRoomById(roomId);
+      }, {once: true});
   roomDialog.open();
 }
 
-// Function to join a specific room by ID
 async function joinRoomById(roomId) {
   const db = firebase.firestore();
   const roomRef = db.collection('rooms').doc(roomId);
@@ -96,7 +90,6 @@ async function joinRoomById(roomId) {
     peerConnection = new RTCPeerConnection(configuration);
     registerPeerConnectionListeners();
 
-    // Add local stream tracks to the peer connection
     localStream.getTracks().forEach(track => {
       peerConnection.addTrack(track, localStream);
     });
@@ -116,7 +109,9 @@ async function joinRoomById(roomId) {
     await peerConnection.setLocalDescription(answer);
 
     // Save the answer to the room
-    await roomRef.update({ answer: answer });
+    await roomRef.update({
+      answer: answer,
+    });
 
     peerConnection.addEventListener('track', event => {
       console.log('Got remote track:', event.streams[0]);
@@ -135,30 +130,21 @@ async function joinRoomById(roomId) {
   }
 }
 
-// Function to request user media permissions
 async function openUserMedia(e) {
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: true,
-      audio: true
-    });
-    document.querySelector('#localVideo').srcObject = stream;
-    localStream = stream;
-    remoteStream = new MediaStream();
-    document.querySelector('#remoteVideo').srcObject = remoteStream;
+  const stream = await navigator.mediaDevices.getUserMedia(
+      {video: true, audio: true});
+  document.querySelector('#localVideo').srcObject = stream;
+  localStream = stream;
+  remoteStream = new MediaStream();
+  document.querySelector('#remoteVideo').srcObject = remoteStream;
 
-    console.log('Stream:', document.querySelector('#localVideo').srcObject);
-    document.querySelector('#cameraBtn').disabled = true;
-    document.querySelector('#joinBtn').disabled = false;
-    document.querySelector('#createBtn').disabled = false;
-    document.querySelector('#hangupBtn').disabled = false;
-  } catch (error) {
-    console.error('Error accessing media devices.', error);
-    alert('Unable to access camera and microphone. Please check your browser settings.');
-  }
+  console.log('Stream:', document.querySelector('#localVideo').srcObject);
+  document.querySelector('#cameraBtn').disabled = true;
+  document.querySelector('#joinBtn').disabled = false;
+  document.querySelector('#createBtn').disabled = false;
+  document.querySelector('#hangupBtn').disabled = false;
 }
 
-// Function to hang up the call and clean up resources
 async function hangUp(e) {
   const tracks = document.querySelector('#localVideo').srcObject.getTracks();
   tracks.forEach(track => {
@@ -181,7 +167,7 @@ async function hangUp(e) {
   document.querySelector('#hangupBtn').disabled = true;
   document.querySelector('#currentRoom').innerText = '';
 
-  // Delete room data on hangup
+  // Delete room on hangup
   if (roomId) {
     const db = firebase.firestore();
     const roomRef = db.collection('rooms').doc(roomId);
@@ -199,10 +185,10 @@ async function hangUp(e) {
   document.location.reload(true);
 }
 
-// Register connection event listeners
 function registerPeerConnectionListeners() {
   peerConnection.addEventListener('icegatheringstatechange', () => {
-    console.log(`ICE gathering state changed: ${peerConnection.iceGatheringState}`);
+    console.log(
+        `ICE gathering state changed: ${peerConnection.iceGatheringState}`);
   });
 
   peerConnection.addEventListener('connectionstatechange', () => {
@@ -214,9 +200,9 @@ function registerPeerConnectionListeners() {
   });
 
   peerConnection.addEventListener('iceconnectionstatechange', () => {
-    console.log(`ICE connection state change: ${peerConnection.iceConnectionState}`);
+    console.log(
+        `ICE connection state change: ${peerConnection.iceConnectionState}`);
   });
 }
 
-// Initialize the app
 init();
