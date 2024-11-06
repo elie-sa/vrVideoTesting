@@ -1,0 +1,42 @@
+[debug] [2024-11-06T19:49:06.370Z] ----------------------------------------------------------------------
+[debug] [2024-11-06T19:49:06.372Z] Command:       /opt/homebrew/Cellar/node@20/20.17.0/bin/node /opt/homebrew/bin/firebase deploy
+[debug] [2024-11-06T19:49:06.372Z] CLI Version:   13.24.1
+[debug] [2024-11-06T19:49:06.372Z] Platform:      darwin
+[debug] [2024-11-06T19:49:06.372Z] Node Version:  v20.17.0
+[debug] [2024-11-06T19:49:06.372Z] Time:          Wed Nov 06 2024 21:49:06 GMT+0200 (Eastern European Standard Time)
+[debug] [2024-11-06T19:49:06.373Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-11-06T19:49:06.411Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-11-06T19:49:06.411Z] > authorizing via signed-in user (e.sawmaawad@gmail.com)
+[debug] [2024-11-06T19:49:06.411Z] [iam] checking project medicalshadowing-eb38c for permissions ["firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update"]
+[debug] [2024-11-06T19:49:06.412Z] Checked if tokens are valid: true, expires at: 1730924780778
+[debug] [2024-11-06T19:49:06.412Z] Checked if tokens are valid: true, expires at: 1730924780778
+[debug] [2024-11-06T19:49:06.412Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/medicalshadowing-eb38c:testIamPermissions [none]
+[debug] [2024-11-06T19:49:06.412Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/medicalshadowing-eb38c:testIamPermissions x-goog-quota-user=projects/medicalshadowing-eb38c
+[debug] [2024-11-06T19:49:06.412Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/medicalshadowing-eb38c:testIamPermissions {"permissions":["firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update"]}
+[debug] [2024-11-06T19:49:08.676Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/medicalshadowing-eb38c:testIamPermissions 200
+[debug] [2024-11-06T19:49:08.677Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/medicalshadowing-eb38c:testIamPermissions {"permissions":["firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update"]}
+[debug] [2024-11-06T19:49:08.677Z] Checked if tokens are valid: true, expires at: 1730924780778
+[debug] [2024-11-06T19:49:08.677Z] Checked if tokens are valid: true, expires at: 1730924780778
+[debug] [2024-11-06T19:49:08.678Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/medicalshadowing-eb38c [none]
+[debug] [2024-11-06T19:49:09.325Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/medicalshadowing-eb38c 200
+[debug] [2024-11-06T19:49:09.325Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/medicalshadowing-eb38c {"projectId":"medicalshadowing-eb38c","projectNumber":"290977377248","displayName":"medicalShadowing","name":"projects/medicalshadowing-eb38c","resources":{"hostingSite":"medicalshadowing-eb38c","realtimeDatabaseInstance":"medicalshadowing-eb38c-default-rtdb"},"state":"ACTIVE","etag":"1_ac51539e-d7f4-4a90-8d08-152a542614de"}
+[debug] [2024-11-06T19:49:09.326Z] Checked if tokens are valid: true, expires at: 1730924780778
+[debug] [2024-11-06T19:49:09.326Z] Checked if tokens are valid: true, expires at: 1730924780778
+[debug] [2024-11-06T19:49:09.326Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/medicalshadowing-eb38c [none]
+[debug] [2024-11-06T19:49:09.706Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/medicalshadowing-eb38c 200
+[debug] [2024-11-06T19:49:09.706Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/medicalshadowing-eb38c {"projectId":"medicalshadowing-eb38c","projectNumber":"290977377248","displayName":"medicalShadowing","name":"projects/medicalshadowing-eb38c","resources":{"hostingSite":"medicalshadowing-eb38c","realtimeDatabaseInstance":"medicalshadowing-eb38c-default-rtdb"},"state":"ACTIVE","etag":"1_ac51539e-d7f4-4a90-8d08-152a542614de"}
+[info] 
+[info] === Deploying to 'medicalshadowing-eb38c'...
+[info] 
+[info] i  deploying database, hosting 
+[info] i  database: checking rules syntax... 
+[debug] [2024-11-06T19:49:09.711Z] Checked if tokens are valid: true, expires at: 1730924780778
+[debug] [2024-11-06T19:49:09.711Z] Checked if tokens are valid: true, expires at: 1730924780778
+[debug] [2024-11-06T19:49:09.711Z] >>> [apiv2][query] GET https://firebasedatabase.googleapis.com/v1beta/projects/medicalshadowing-eb38c/locations/-/instances/medicalshadowing-eb38c-default-rtdb [none]
+[debug] [2024-11-06T19:49:10.748Z] <<< [apiv2][status] GET https://firebasedatabase.googleapis.com/v1beta/projects/medicalshadowing-eb38c/locations/-/instances/medicalshadowing-eb38c-default-rtdb 200
+[debug] [2024-11-06T19:49:10.748Z] <<< [apiv2][body] GET https://firebasedatabase.googleapis.com/v1beta/projects/medicalshadowing-eb38c/locations/-/instances/medicalshadowing-eb38c-default-rtdb {"name":"projects/290977377248/locations/us-central1/instances/medicalshadowing-eb38c-default-rtdb","project":"projects/290977377248","databaseUrl":"https://medicalshadowing-eb38c-default-rtdb.firebaseio.com","type":"DEFAULT_DATABASE","state":"ACTIVE"}
+[debug] [2024-11-06T19:49:10.750Z] Checked if tokens are valid: true, expires at: 1730924780778
+[debug] [2024-11-06T19:49:10.750Z] Checked if tokens are valid: true, expires at: 1730924780778
+[debug] [2024-11-06T19:49:10.751Z] >>> [apiv2][query] PUT https://medicalshadowing-eb38c-default-rtdb.firebaseio.com/.settings/rules.json dryRun=true
+[debug] [2024-11-06T19:49:10.751Z] >>> [apiv2][body] PUT https://medicalshadowing-eb38c-default-rtdb.firebaseio.com/.settings/rules.json "{\n  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */\n  \"rules\": {\n    \".read\": false,\n    \".write\": false\n  }\n}"
